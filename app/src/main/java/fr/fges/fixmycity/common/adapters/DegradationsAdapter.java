@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,13 +21,13 @@ import fr.fges.fixmycity.R;
  * Created by Guillaume on 06/05/2016.
  */
 
-public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
+public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<File> mItems;
     private int mSize;
 
-    public PhotosAdapter(Context context, File[] photos, int size) {
+    public DegradationsAdapter(Context context, File[] photos, int size) {
         this.mContext = context;
         this.mSize = size;
         mItems = new ArrayList<>();
@@ -36,13 +39,13 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     }
 
     @Override
-    public PhotosAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DegradationsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.degradation_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(PhotosAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(DegradationsAdapter.ViewHolder holder, int position) {
         if (mItems != null && mItems.size() > 0) {
             if (mItems.get(position).exists()) {
                 Glide
@@ -65,12 +68,20 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mImage;
+        private ImageView mImage;
+        private TextView mReference;
+        private TextView mDescription;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImage = (ImageView) itemView.findViewById(R.id.degradation_item_imv);
+            mReference = (TextView) itemView.findViewById(R.id.degradation_item_reference);
+            mDescription = (TextView) itemView.findViewById(R.id.degradation_item_description);
+
+            //TODO - DEBUG ONLY TO REMOVE
+            mReference.setText("A018FFR8");
+            mDescription.setText("This is a description of a degradation");
         }
     }
 }

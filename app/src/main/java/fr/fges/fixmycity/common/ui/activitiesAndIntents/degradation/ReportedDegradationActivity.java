@@ -33,5 +33,4 @@ public class ReportedDegradationActivity extends BaseActivity {
             }
         });
     }
-
 }

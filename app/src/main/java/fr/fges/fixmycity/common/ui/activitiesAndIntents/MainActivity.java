@@ -3,21 +3,27 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
+
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportDegradationActivity;
 
 public class MainActivity extends BaseActivity {
 
-    Button mButton;
+    private Button mButton;
+    private DegradationsAdapter mDegradationsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+
+        File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
+        File[] photos = storageDir.listFiles();
+        this.mDegradationsAdapter = new DegradationsAdapter(this, photos, width);
+
         mButton = (Button) findViewById(R.id.main_report_btn);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +61,11 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setAdapter(mDegradationsAdapter);
+        recyclerView.hasFixedSize();
 
     }
 
