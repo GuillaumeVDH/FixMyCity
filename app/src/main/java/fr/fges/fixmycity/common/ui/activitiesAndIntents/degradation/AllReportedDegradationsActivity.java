@@ -1,5 +1,6 @@
 package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -9,21 +10,26 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import java.io.File;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.PhotosAdapter;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
-public class AllReportedDegradationsActivity extends AppCompatActivity {
+public class AllReportedDegradationsActivity extends BaseActivity {
 
     private PhotosAdapter mPhotosAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_reported_degradations);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_all_reported_degradations, null, false);
+        mDrawer.addView(contentView, 0);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
