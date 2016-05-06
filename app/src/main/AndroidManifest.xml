@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fr.fges.fixmycity">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- To take a photo of the degradation and store it before sending -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".common.ui.activitiesAndIntents.BaseActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".common.ui.activitiesAndIntents.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".common.ui.activitiesAndIntents.auth.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".common.ui.activitiesAndIntents.degradation.ReportDegradationActivity"
+            android:label="@string/title_activity_report_degradation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".common.ui.activitiesAndIntents.degradation.ReportedDegradationActivity"
+            android:label="@string/title_activity_reported_degradation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity"
+            android:label="@string/title_activity_all_reported_degradations"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
