@@ -15,11 +15,13 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     protected DrawerLayout mDrawer;
+    protected DegradationFactory mDegradationFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class BaseActivity extends AppCompatActivity
                 this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        mDegradationFactory.getInstance(); //TODO - REMOVE DEBUG ONLY (until no persistence)
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

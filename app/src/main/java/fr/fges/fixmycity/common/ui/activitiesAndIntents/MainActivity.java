@@ -3,17 +3,14 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.File;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
@@ -41,17 +38,10 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AllReportedDegradationsActivity.class);
                 startActivity(intent);
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
             }
         });
 
-        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-
-        File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
-        File[] photos = storageDir.listFiles();
-        this.mDegradationsAdapter = new DegradationsAdapter(this, photos, width);
+        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
 
         mButton = (Button) findViewById(R.id.main_report_btn);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +51,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));

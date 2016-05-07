@@ -60,6 +60,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/report_degradation_choose_type"
+                android:id="@+id/report_degradation_choose_type_label_txv" />
+
             <Spinner
                 android:id="@+id/report_degradation_sp"
                 android:layout_width="match_parent"
@@ -67,13 +75,21 @@
                 android:spinnerMode="dialog">
 
             </Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/report_degradation_description"
+                android:id="@+id/report_degradation_description_label_txv" />
+
             <EditText
                 android:id="@+id/report_degradation_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minLines="3"
+                android:minLines="2"
                 android:inputType="textMultiLine"
-                android:maxLines="6"/>
+                android:maxLines="6" />
 
         </LinearLayout>
 

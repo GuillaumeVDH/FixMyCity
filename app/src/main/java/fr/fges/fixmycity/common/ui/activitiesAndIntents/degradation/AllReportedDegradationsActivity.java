@@ -15,6 +15,7 @@ import java.io.File;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
+import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class AllReportedDegradationsActivity extends BaseActivity {
 
@@ -30,17 +31,11 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-
-        File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
-        File[] photos = storageDir.listFiles();
-        this.mDegradationsAdapter = new DegradationsAdapter(this, photos, width);
+        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(mDegradationsAdapter);
         recyclerView.hasFixedSize();
     }
-
 }

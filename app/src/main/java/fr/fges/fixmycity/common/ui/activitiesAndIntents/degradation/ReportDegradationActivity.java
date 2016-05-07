@@ -14,14 +14,15 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
@@ -32,7 +33,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.MainActivity;
 
 public class ReportDegradationActivity extends BaseActivity {
 
@@ -46,7 +49,9 @@ public class ReportDegradationActivity extends BaseActivity {
     };
 
     private Button mTakePhotoBtn;
+    private Spinner mDegradationType;
     private ImageView mImageView;
+    private EditText mDescriptionEdt;
     private File mPhotoFile;
     private File mStorageDir;
     private String mCurrentPhotoPath = null;
@@ -62,22 +67,33 @@ public class ReportDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-
         mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
-        File[] photos = mStorageDir.listFiles();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Degradation reported", Snackbar.LENGTH_LONG)
+                Degradation degradation = new Degradation();
+                if(mPhotoFile.exists())
+                    degradation.setmImagePath(mPhotoFile.getAbsolutePath());
+
+                degradation.setmDescription(mDescriptionEdt.getText().toString());
+                degradation.setmReference("NULL-PTR?");
+                mDegradationFactory.getInstance().addDegradation(degradation);
+                Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();
+
+                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
             }
         });
 
         mImageView = (ImageView) findViewById(R.id.report_degradation_photo_imv);
+
+        mDescriptionEdt = (EditText) findViewById(R.id.report_degradation_edt);
+
+        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
+        mDegradationType.setAdapter(adapter);
 
         mTakePhotoBtn = (Button) findViewById(R.id.report_degradation_take_photo_btn);
         mTakePhotoBtn.setOnClickListener(new View.OnClickListener() {

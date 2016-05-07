@@ -30,4 +30,14 @@
     <string name="title_activity_all_reported_degradations">AllReportedDegradationsActivity</string>
     <string name="report_degradation_photo_description">Photo of the degradation</string>
     <string name="main_reported_degradations_list">Reporté autour de vous:</string>
+    <string name="report_degradation_description">Description:</string>
+    <string name="report_degradation_choose_type">Catégoriser la dégradation:</string>
+
+    <string-array name="degradations_types_array">
+        <item>Infrastructure routière</item>
+        <item>Infrastructure urbaine</item>
+        <item>Tags</item>
+        <item>Déchets</item>
+        <item>Parc</item>
+    </string-array>
 </resources>
