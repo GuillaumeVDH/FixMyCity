@@ -12,7 +12,6 @@ import android.view.View;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
-import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;
 
@@ -35,7 +34,6 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(mDegradationsAdapter);
-        //recyclerView.hasFixedSize();
         recyclerView.setHasFixedSize(false);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -49,9 +47,5 @@ public class AllReportedDegradationsActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    public interface AllReportedDegradationsCallback {
-        void onItemSelected(Degradation degradation);
     }
 }

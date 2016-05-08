@@ -32,7 +32,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.Constants;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
@@ -48,9 +51,9 @@ public class ReportDegradationActivity extends BaseActivity {
     };
 
     private Button mTakePhotoBtn;
-    private Spinner mDegradationType;
-    private ImageView mImageView;
-    private EditText mDescriptionEdt;
+    @BindView(R.id.report_degradation_sp) Spinner mDegradationType;
+    @BindView(R.id.report_degradation_photo_imv) ImageView mImageView;
+    @BindView(R.id.report_degradation_edt) EditText mDescriptionEdt;
     private File mPhotoFile;
     private File mStorageDir;
     private String mCurrentPhotoPath = null;
@@ -66,7 +69,9 @@ public class ReportDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
+        ButterKnife.bind(this);
+
+        mStorageDir = new File(Environment.getExternalStorageDirectory()+ Constants.APP_PHOTOS_PATH);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,15 +88,10 @@ public class ReportDegradationActivity extends BaseActivity {
                 Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();
 
-                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
+                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright or a snackbare here with failure message.
             }
         });
 
-        mImageView = (ImageView) findViewById(R.id.report_degradation_photo_imv);
-
-        mDescriptionEdt = (EditText) findViewById(R.id.report_degradation_edt);
-
-        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
         mDegradationType.setAdapter(adapter);
 

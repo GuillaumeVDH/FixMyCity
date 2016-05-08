@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
@@ -19,10 +21,10 @@ import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 public class ReportedDegradationActivity extends BaseActivity {
 
     private Degradation mDegradation;
-    private ImageView mPhoto;
-    private TextView mCategory;
-    private TextView mReference;
-    private TextView mDescription;
+    @BindView(R.id.reported_degradation_imv) ImageView mPhoto;
+    @BindView(R.id.reported_degradation_cagetory) TextView mCategory;
+    @BindView(R.id.reported_degradation_reference) TextView mReference;
+    @BindView(R.id.reported_degradation_description) TextView mDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,7 @@ public class ReportedDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mPhoto = (ImageView) findViewById(R.id.reported_degradation_imv);
-        mReference = (TextView) findViewById(R.id.reported_degradation_reference);
-        mDescription = (TextView) findViewById(R.id.reported_degradation_description);
-        mCategory = (TextView) findViewById(R.id.reported_degradation_cagetory);
+        ButterKnife.bind(this);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {

@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 
@@ -54,15 +56,13 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mImage;
-        private TextView mReference;
-        private TextView mDescription;
+        @BindView(R.id.degradation_item_imv) ImageView mImage;
+        @BindView(R.id.degradation_item_reference) TextView mReference;
+        @BindView(R.id.degradation_item_description) TextView mDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImage = (ImageView) itemView.findViewById(R.id.degradation_item_imv);
-            mReference = (TextView) itemView.findViewById(R.id.degradation_item_reference);
-            mDescription = (TextView) itemView.findViewById(R.id.degradation_item_description);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
