@@ -1,9 +1,12 @@
 package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -14,7 +17,9 @@ import java.io.File;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
+import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
+import fr.fges.fixmycity.common.utils.ItemClickSupport;
 import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class AllReportedDegradationsActivity extends BaseActivity {
@@ -36,6 +41,23 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(mDegradationsAdapter);
-        recyclerView.hasFixedSize();
+        //recyclerView.hasFixedSize();
+        recyclerView.setHasFixedSize(false);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent intent = new Intent(getBaseContext(), ReportedDegradationActivity.class);
+                intent.putExtra("degradationPosition", (int)position);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public interface AllReportedDegradationsCallback {
+        void onItemSelected(Degradation degradation);
     }
 }

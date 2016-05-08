@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportDegradationActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportedDegradationActivity;
+import fr.fges.fixmycity.common.utils.ItemClickSupport;
 
 public class MainActivity extends BaseActivity {
 
@@ -57,7 +59,19 @@ public class MainActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(mDegradationsAdapter);
-        recyclerView.hasFixedSize();
+        recyclerView.setHasFixedSize(false);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent intent = new Intent(getBaseContext(), ReportedDegradationActivity.class);
+                intent.putExtra("degradationPosition", (int)position);
+                startActivity(intent);
+            }
+        });
 
     }
 
