@@ -16,6 +16,7 @@ import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportDegradationActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportedDegradationActivity;
 
 public class MainActivity extends BaseActivity {
 

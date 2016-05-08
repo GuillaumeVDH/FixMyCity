@@ -32,6 +32,10 @@
     <string name="main_reported_degradations_list">Reporté autour de vous:</string>
     <string name="report_degradation_description">Description:</string>
     <string name="report_degradation_choose_type">Catégoriser la dégradation:</string>
+    <string name="reported_degradation_picture_description">picture_of_the_degradation</string>
+    <string name="reported_degradation_description_label">Description:</string>
+    <string name="reported_degradation_category_label">Categorie</string>
+    <string name="reported_degradation_reference_label">Référence:</string>
 
     <string-array name="degradations_types_array">
         <item>Infrastructure routière</item>
