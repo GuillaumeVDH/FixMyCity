@@ -61,13 +61,16 @@ public class DegradationFactory {
     private void initPhotosToList() {
         File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
         File[] photos = storageDir.listFiles();
-        int start = 0;
-        int end = photos.length-1;
-        for(Degradation degradation : mDegradationList) {
-            double r = Math.random() * (end - start);
-            File photo = photos[(int) r];
-            if(photo.exists()){
-                degradation.setmImagePath(photo.getAbsolutePath());
+        if(photos.length != 0) {
+            int start = 0;
+            int end = photos.length;
+            for(Degradation degradation : mDegradationList) {
+                double r = Math.random() * (end - start);
+
+                File photo = photos[(int) r];
+                if(photo.exists()){
+                    degradation.setmImagePath(photo.getAbsolutePath());
+                }
             }
         }
     }
