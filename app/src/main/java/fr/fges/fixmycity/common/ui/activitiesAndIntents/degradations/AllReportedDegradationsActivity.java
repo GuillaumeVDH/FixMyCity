@@ -1,26 +1,20 @@
-package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation;
+package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import java.io.File;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;
-import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class AllReportedDegradationsActivity extends BaseActivity {
 

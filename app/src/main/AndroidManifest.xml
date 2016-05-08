@@ -35,15 +35,15 @@
             android:name=".common.ui.activitiesAndIntents.auth.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".common.ui.activitiesAndIntents.degradation.ReportDegradationActivity"
+            android:name=".common.ui.activitiesAndIntents.degradations.ReportDegradationActivity"
             android:label="@string/title_activity_report_degradation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".common.ui.activitiesAndIntents.degradation.ReportedDegradationActivity"
+            android:name=".common.ui.activitiesAndIntents.degradations.ReportedDegradationActivity"
             android:label="@string/title_activity_reported_degradation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity"
+            android:name=".common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity"
             android:label="@string/title_activity_all_reported_degradations"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

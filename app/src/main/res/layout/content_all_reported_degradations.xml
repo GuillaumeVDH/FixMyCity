@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity"
+    tools:context="fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity"
     tools:showIn="@layout/activity_all_reported_degradations">
 
     <android.support.v7.widget.RecyclerView

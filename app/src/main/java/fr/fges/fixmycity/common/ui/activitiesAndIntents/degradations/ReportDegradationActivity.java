@@ -1,4 +1,4 @@
-package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation;
+package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.Manifest;
 import android.app.Activity;
@@ -35,7 +35,6 @@ import java.util.Date;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.MainActivity;
 
 public class ReportDegradationActivity extends BaseActivity {
 
@@ -79,6 +78,7 @@ public class ReportDegradationActivity extends BaseActivity {
 
                 degradation.setmDescription(mDescriptionEdt.getText().toString());
                 degradation.setmReference("NULL-PTR?");
+                degradation.setmCategory(mDegradationType.getSelectedItem().toString());
                 mDegradationFactory.getInstance().addDegradation(degradation);
                 Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();

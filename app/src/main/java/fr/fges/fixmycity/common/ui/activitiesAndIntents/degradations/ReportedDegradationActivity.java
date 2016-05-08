@@ -1,10 +1,9 @@
-package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation;
+package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
@@ -42,6 +37,7 @@ public class ReportedDegradationActivity extends BaseActivity {
         mPhoto = (ImageView) findViewById(R.id.reported_degradation_imv);
         mReference = (TextView) findViewById(R.id.reported_degradation_reference);
         mDescription = (TextView) findViewById(R.id.reported_degradation_description);
+        mCategory = (TextView) findViewById(R.id.reported_degradation_cagetory);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -50,6 +46,7 @@ public class ReportedDegradationActivity extends BaseActivity {
                 mDegradation = mDegradationFactory.getInstance().getmDegradationList().get(position);
                 mDescription.setText(mDegradation.getmDescription());
                 mReference.setText(mDegradation.getmReference());
+                mCategory.setText(mDegradation.getmCategory());
                 Glide
                         .with(this)
                         .load(mDegradation.getmImagePath())
@@ -64,7 +61,7 @@ public class ReportedDegradationActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "La dégradation a été confirmée, merci!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

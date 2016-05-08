@@ -8,6 +8,9 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="main_app_name">FixMyCity</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_report_degradation">Déclarer une dégradation</string>
+    <string name="title_activity_reported_degradation">Dégradation</string>
+    <string name="title_activity_all_reported_degradations">Liste des dégradations autour de vous</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -24,10 +27,8 @@
     <string name="main_report_btn">Déclarer une dégradation</string>
     <string name="login_sign_in_btn">Sign in</string>
     <string name="login_sign_up_btn">Sign up</string>
-    <string name="title_activity_report_degradation">ReportDegradationActivity</string>
     <string name="report_degradation_take_photo_btn">Take a photo</string>
-    <string name="title_activity_reported_degradation">ReportedDegradationActivity</string>
-    <string name="title_activity_all_reported_degradations">AllReportedDegradationsActivity</string>
+
     <string name="report_degradation_photo_description">Photo of the degradation</string>
     <string name="main_reported_degradations_list">Reporté autour de vous:</string>
     <string name="report_degradation_description">Description:</string>

@@ -15,9 +15,9 @@ import android.widget.Button;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.AllReportedDegradationsActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportDegradationActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradation.ReportedDegradationActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportedDegradationActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;
 
 public class MainActivity extends BaseActivity {

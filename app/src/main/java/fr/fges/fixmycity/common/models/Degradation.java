@@ -7,6 +7,7 @@ public class Degradation {
 
     private String mImagePath;
     private String mReference;
+    private String mCategory;
     private String mDescription;
 
     public Degradation(String mImage, String mReference, String mDescription) {
@@ -40,5 +41,13 @@ public class Degradation {
 
     public void setmDescription(String mDescription) {
         this.mDescription = mDescription;
+    }
+
+    public String getmCategory() {
+        return mCategory;
+    }
+
+    public void setmCategory(String mCategory) {
+        this.mCategory = mCategory;
     }
 }
