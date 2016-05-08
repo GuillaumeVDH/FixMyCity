@@ -34,6 +34,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.Constants;
 import fr.fges.fixmycity.common.models.Degradation;
@@ -50,7 +51,7 @@ public class ReportDegradationActivity extends BaseActivity {
             Manifest.permission.CAMERA
     };
 
-    private Button mTakePhotoBtn;
+    @BindView(R.id.report_degradation_take_photo_btn) Button mTakePhotoBtn;
     @BindView(R.id.report_degradation_sp) Spinner mDegradationType;
     @BindView(R.id.report_degradation_photo_imv) ImageView mImageView;
     @BindView(R.id.report_degradation_edt) EditText mDescriptionEdt;
@@ -94,16 +95,13 @@ public class ReportDegradationActivity extends BaseActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
         mDegradationType.setAdapter(adapter);
+    }
 
-        mTakePhotoBtn = (Button) findViewById(R.id.report_degradation_take_photo_btn);
-        mTakePhotoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyStoragePermissions();
-                mPhotoFile = null;
-                dispatchTakePictureIntent();
-            }
-        });
+    @OnClick(R.id.report_degradation_take_photo_btn)
+    private void onTakePhotoBtnClicked() {
+        verifyStoragePermissions();
+        mPhotoFile = null;
+        dispatchTakePictureIntent();
     }
 
     private void verifyStoragePermissions() {
