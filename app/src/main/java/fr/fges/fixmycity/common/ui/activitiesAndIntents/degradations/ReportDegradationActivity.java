@@ -52,7 +52,8 @@ public class ReportDegradationActivity extends BaseActivity {
     };
 
     @BindView(R.id.report_degradation_take_photo_btn) Button mTakePhotoBtn;
-    @BindView(R.id.report_degradation_sp) Spinner mDegradationType;
+    //@BindView(R.id.report_degradation_sp) Spinner mDegradationType;
+    private Spinner mDegradationType;
     @BindView(R.id.report_degradation_photo_imv) ImageView mImageView;
     @BindView(R.id.report_degradation_edt) EditText mDescriptionEdt;
     private File mPhotoFile;
@@ -71,6 +72,7 @@ public class ReportDegradationActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
 
         mStorageDir = new File(Environment.getExternalStorageDirectory()+ Constants.APP_PHOTOS_PATH);
 
