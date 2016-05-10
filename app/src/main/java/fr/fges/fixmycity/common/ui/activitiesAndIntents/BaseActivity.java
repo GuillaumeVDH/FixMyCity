@@ -97,6 +97,13 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.setType("message/rfc822");
+            email.putExtra(android.content.Intent.EXTRA_EMAIL,"franck.mahieu59@gmail.com");
+            email.putExtra(Intent.EXTRA_SUBJECT, "Signaler un bug");
+            email.putExtra(Intent.EXTRA_TEXT, "Saisir votre demande ici...");
+            email.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(Intent.createChooser(email, "Choisir le logiciel"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
