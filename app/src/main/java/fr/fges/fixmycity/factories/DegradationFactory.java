@@ -61,7 +61,7 @@ public class DegradationFactory {
     private void initPhotosToList() {
         File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
         File[] photos = storageDir.listFiles();
-        if(photos.length != 0) {
+        if(photos != null) {
             int start = 0;
             int end = photos.length;
             for(Degradation degradation : mDegradationList) {

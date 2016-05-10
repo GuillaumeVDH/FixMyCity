@@ -94,8 +94,6 @@ public class BaseActivity extends AppCompatActivity
             Intent intent = new Intent(this, AllReportedDegradationsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
             Intent email = new Intent(Intent.ACTION_SEND);
             email.setType("message/rfc822");
