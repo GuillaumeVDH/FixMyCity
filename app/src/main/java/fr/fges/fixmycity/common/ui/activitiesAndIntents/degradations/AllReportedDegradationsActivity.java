@@ -13,12 +13,15 @@ import android.view.View;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.models.Degradation;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;
 
 public class AllReportedDegradationsActivity extends BaseActivity {
 
     private DegradationsAdapter mDegradationsAdapter;
+    private DegradationService mDegradationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,10 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
+        mDegradationService = new DegradationServicesImpl();
+
+//        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
+        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -45,13 +51,9 @@ public class AllReportedDegradationsActivity extends BaseActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent intent = new Intent(getBaseContext(), ReportedDegradationActivity.class);
-                intent.putExtra("degradationPosition", (int)position);
+                intent.putExtra("degradationId", (int)mDegradationsAdapter.getItemId(position));
                 startActivity(intent);
             }
         });
-    }
-
-    public interface AllReportedDegradationsCallback {
-        void onItemSelected(Degradation degradation);
     }
 }

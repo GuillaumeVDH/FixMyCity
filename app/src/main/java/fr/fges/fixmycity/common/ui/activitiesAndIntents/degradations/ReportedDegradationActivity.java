@@ -47,7 +47,7 @@ public class ReportedDegradationActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             Integer position = extras.getInt("degradationPosition");
-            if(position >= 0 && position < mDegradationFactory.getInstance().getmDegradationList().size()) {
+            if(position >= 0 && position < mDegradationService.countNbDegradations()) {
 //                mDegradation = mDegradationFactory.getInstance().getmDegradationList().get(position);
                 mDegradation = mDegradationService.findDegradationById(position);
                 mDescription.setText(mDegradation.getmDescription());

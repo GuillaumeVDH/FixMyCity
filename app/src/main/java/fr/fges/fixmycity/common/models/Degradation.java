@@ -1,18 +1,35 @@
 package fr.fges.fixmycity.common.models;
 
-import com.orm.SugarRecord;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by Guillaume on 07/05/2016.
  */
-public class Degradation extends SugarRecord {
+@DatabaseTable(tableName = "degradations")
+public class Degradation {
 
-    private String mImagePath;
+    @DatabaseField(generatedId = true, columnName = "teacher_id")
+    private int mId;
+
+    @DatabaseField()
     private String mReference;
+    @DatabaseField
     private String mCategory;
+    @DatabaseField
     private String mDescription;
+    @DatabaseField
+    private String mImagePath;
 
     public Degradation() {
+    }
+
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
     }
 
     public String getmImagePath() {

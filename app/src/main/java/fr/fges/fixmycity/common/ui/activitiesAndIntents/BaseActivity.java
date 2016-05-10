@@ -11,12 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.orm.SugarContext;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.persistence.DBManager;
+import fr.fges.fixmycity.common.persistence.DatabaseHelper;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.factories.DegradationFactory;
+
+import static com.j256.ormlite.android.apptools.OpenHelperManager.setOpenHelperClass;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,11 +31,13 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SugarContext.init(getApplicationContext());
 
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        setOpenHelperClass(DatabaseHelper.class);
+        DBManager.Init(this);
 
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);

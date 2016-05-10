@@ -11,7 +11,7 @@ public interface DegradationService {
 
     long addDegradation(Degradation degradation);
 
-    boolean deleteDegradation(Degradation degradation);
+    void deleteDegradation(Degradation degradation);
 
     Degradation findDegradationById(long id);
 
