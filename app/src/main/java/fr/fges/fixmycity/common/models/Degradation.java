@@ -1,20 +1,16 @@
 package fr.fges.fixmycity.common.models;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Guillaume on 07/05/2016.
  */
-public class Degradation {
+public class Degradation extends SugarRecord {
 
     private String mImagePath;
     private String mReference;
     private String mCategory;
     private String mDescription;
-
-    public Degradation(String mImage, String mReference, String mDescription) {
-        this.mImagePath = mImage;
-        this.mReference = mReference;
-        this.mDescription = mDescription;
-    }
 
     public Degradation() {
     }

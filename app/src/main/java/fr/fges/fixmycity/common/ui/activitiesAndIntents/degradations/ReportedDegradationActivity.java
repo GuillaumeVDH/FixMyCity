@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
 public class ReportedDegradationActivity extends BaseActivity {
@@ -23,6 +25,7 @@ public class ReportedDegradationActivity extends BaseActivity {
     private TextView mCategory;
     private TextView mReference;
     private TextView mDescription;
+    private DegradationService mDegradationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class ReportedDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDegradationService = new DegradationServicesImpl();
+
         mPhoto = (ImageView) findViewById(R.id.reported_degradation_imv);
         mReference = (TextView) findViewById(R.id.reported_degradation_reference);
         mDescription = (TextView) findViewById(R.id.reported_degradation_description);
@@ -43,7 +48,8 @@ public class ReportedDegradationActivity extends BaseActivity {
         if(extras != null) {
             Integer position = extras.getInt("degradationPosition");
             if(position >= 0 && position < mDegradationFactory.getInstance().getmDegradationList().size()) {
-                mDegradation = mDegradationFactory.getInstance().getmDegradationList().get(position);
+//                mDegradation = mDegradationFactory.getInstance().getmDegradationList().get(position);
+                mDegradation = mDegradationService.findDegradationById(position);
                 mDescription.setText(mDegradation.getmDescription());
                 mReference.setText(mDegradation.getmReference());
                 mCategory.setText(mDegradation.getmCategory());

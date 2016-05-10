@@ -15,6 +15,8 @@ import android.widget.Button;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportedDegradationActivity;
@@ -24,6 +26,7 @@ public class MainActivity extends BaseActivity {
 
     private Button mButton;
     private DegradationsAdapter mDegradationsAdapter;
+    private DegradationService mDegradationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDegradationService = new DegradationServicesImpl();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +49,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
+
+//        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
+        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         mButton = (Button) findViewById(R.id.main_report_btn);
         mButton.setOnClickListener(new View.OnClickListener() {

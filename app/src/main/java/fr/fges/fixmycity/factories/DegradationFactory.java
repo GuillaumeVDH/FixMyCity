@@ -33,7 +33,7 @@ public class DegradationFactory {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
 
     public DegradationFactory() {
-        mDegradationList.add(new Degradation(null, "ABB7RF1", mDescription));
+       /* mDegradationList.add(new Degradation(null, "ABB7RF1", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF2", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF3", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF4", mDescription));
@@ -46,7 +46,7 @@ public class DegradationFactory {
         mDegradationList.add(new Degradation(null, "ABB7RF11", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF12", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF13", mDescription));
-        mDegradationList.add(new Degradation(null, "ABB7RF14", mDescription));
+        mDegradationList.add(new Degradation(null, "ABB7RF14", mDescription));*/
 
         this.initPhotosToList();
     }
@@ -61,7 +61,7 @@ public class DegradationFactory {
     private void initPhotosToList() {
         File storageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
         File[] photos = storageDir.listFiles();
-        if(photos.length != 0) {
+        if(photos != null && photos.length != 0) {
             int start = 0;
             int end = photos.length;
             for(Degradation degradation : mDegradationList) {

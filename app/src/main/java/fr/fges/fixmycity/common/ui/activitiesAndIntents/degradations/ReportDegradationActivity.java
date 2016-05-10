@@ -34,6 +34,8 @@ import java.util.Date;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
 public class ReportDegradationActivity extends BaseActivity {
@@ -53,6 +55,7 @@ public class ReportDegradationActivity extends BaseActivity {
     private EditText mDescriptionEdt;
     private File mPhotoFile;
     private File mStorageDir;
+    private DegradationService mDegradationService;
     private String mCurrentPhotoPath = null;
     private Uri mCapturedImageURI = null;
 
@@ -66,6 +69,7 @@ public class ReportDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDegradationService = new DegradationServicesImpl();
         mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -79,7 +83,10 @@ public class ReportDegradationActivity extends BaseActivity {
                 degradation.setmDescription(mDescriptionEdt.getText().toString());
                 degradation.setmReference("NULL-PTR?");
                 degradation.setmCategory(mDegradationType.getSelectedItem().toString());
-                mDegradationFactory.getInstance().addDegradation(degradation);
+
+//                mDegradationFactory.getInstance().addDegradation(degradation);
+                mDegradationService.addDegradation(degradation);
+
                 Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();
 
