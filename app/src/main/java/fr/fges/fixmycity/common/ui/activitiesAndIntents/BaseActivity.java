@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
+import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.persistence.DBManager;
 import fr.fges.fixmycity.common.persistence.DatabaseHelper;
@@ -31,9 +32,12 @@ public class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_base);;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ButterKnife.setDebug(true);
 
         setOpenHelperClass(DatabaseHelper.class);
         DBManager.Init(this);

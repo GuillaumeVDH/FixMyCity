@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.services.DegradationService;
@@ -24,19 +27,26 @@ import fr.fges.fixmycity.common.utils.ItemClickSupport;
 
 public class MainActivity extends BaseActivity {
 
-    private Button mButton;
+    @Bind(R.id.main_report_btn)
+    Button mButton;
+
     private DegradationsAdapter mDegradationsAdapter;
     private DegradationService mDegradationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_main, null, false);
+
+        ButterKnife.bind(this, contentView);
+
         mDrawer.addView(contentView, 0);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         mDegradationService = new DegradationServicesImpl();
 
@@ -50,15 +60,6 @@ public class MainActivity extends BaseActivity {
         });
 
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
-
-        mButton = (Button) findViewById(R.id.main_report_btn);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ReportDegradationActivity.class);
-                startActivity(intent);
-            }
-        });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -77,4 +78,11 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
+    @OnClick(R.id.main_report_btn)
+    protected void onReportCalled() {
+        Intent intent = new Intent(getBaseContext(), ReportDegradationActivity.class);
+        startActivity(intent);
+    }
+
 }

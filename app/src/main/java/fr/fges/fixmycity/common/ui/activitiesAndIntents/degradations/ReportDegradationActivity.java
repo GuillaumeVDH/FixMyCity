@@ -32,6 +32,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.services.DegradationService;
@@ -49,10 +52,14 @@ public class ReportDegradationActivity extends BaseActivity {
             Manifest.permission.CAMERA
     };
 
-    private Button mTakePhotoBtn;
-    private Spinner mDegradationType;
-    private ImageView mImageView;
-    private EditText mDescriptionEdt;
+    @Bind(R.id.report_degradation_take_photo_btn)
+    Button mTakePhotoBtn;
+    @Bind(R.id.report_degradation_photo_imv)
+    ImageView mImageView;
+    @Bind(R.id.report_degradation_edt)
+    EditText mDescriptionEdt;
+    @Bind(R.id.report_degradation_sp)
+    Spinner mDegradationType;
     private File mPhotoFile;
     private File mStorageDir;
     private DegradationService mDegradationService;
@@ -65,6 +72,9 @@ public class ReportDegradationActivity extends BaseActivity {
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_report_degradation, null, false);
+
+        ButterKnife.bind(this, contentView);
+
         mDrawer.addView(contentView, 0);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,23 +105,17 @@ public class ReportDegradationActivity extends BaseActivity {
             }
         });
 
-        mImageView = (ImageView) findViewById(R.id.report_degradation_photo_imv);
-
-        mDescriptionEdt = (EditText) findViewById(R.id.report_degradation_edt);
-
-        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
+        //mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
         mDegradationType.setAdapter(adapter);
 
-        mTakePhotoBtn = (Button) findViewById(R.id.report_degradation_take_photo_btn);
-        mTakePhotoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyStoragePermissions();
-                mPhotoFile = null;
-                dispatchTakePictureIntent();
-            }
-        });
+    }
+
+    @OnClick(R.id.report_degradation_take_photo_btn)
+    protected void onTakePhotoBtn() {
+        verifyStoragePermissions();
+        mPhotoFile = null;
+        dispatchTakePictureIntent();
     }
 
     private void verifyStoragePermissions() {
