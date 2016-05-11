@@ -85,11 +85,8 @@ public class ReportDegradationActivity extends BaseActivity {
                 degradation.setmCategory(mDegradationType.getSelectedItem().toString());
 
                 long id = mDegradationService.addDegradation(degradation);
-                System.out.println("Id created: " + id);
                 degradation.setmId(id);
-                System.out.println("Id setted: " + degradation.getmId());
                 mDegradationService.updateDegradation(degradation);
-                System.out.println("Id updated: " + mDegradationService.findDegradationById(degradation.getmId()).getmId());
 
                 Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();
