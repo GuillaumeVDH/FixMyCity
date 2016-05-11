@@ -1,22 +1,35 @@
 package fr.fges.fixmycity.common.models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by Guillaume on 07/05/2016.
  */
+@DatabaseTable(tableName = "degradations")
 public class Degradation {
 
-    private String mImagePath;
-    private String mReference;
-    private String mCategory;
-    private String mDescription;
+    @DatabaseField(generatedId = true, columnName = "degradation_id")
+    private long mId;
 
-    public Degradation(String mImage, String mReference, String mDescription) {
-        this.mImagePath = mImage;
-        this.mReference = mReference;
-        this.mDescription = mDescription;
-    }
+    @DatabaseField()
+    private String mReference;
+    @DatabaseField
+    private String mCategory;
+    @DatabaseField
+    private String mDescription;
+    @DatabaseField
+    private String mImagePath;
 
     public Degradation() {
+    }
+
+    public long getmId() {
+        return mId;
+    }
+
+    public void setmId(long mId) {
+        this.mId = mId;
     }
 
     public String getmImagePath() {
@@ -49,5 +62,16 @@ public class Degradation {
 
     public void setmCategory(String mCategory) {
         this.mCategory = mCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "Degradation{" +
+                "mId=" + mId +
+                ", mReference='" + mReference + '\'' +
+                ", mCategory='" + mCategory + '\'' +
+                ", mDescription='" + mDescription + '\'' +
+                ", mImagePath='" + mImagePath + '\'' +
+                '}';
     }
 }

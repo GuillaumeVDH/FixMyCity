@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
 
@@ -41,6 +39,7 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
     public void onBindViewHolder(DegradationsAdapter.ViewHolder holder, int position) {
         Degradation degradation = mDegradationsList.get(position);
 
+        holder.mId = degradation.getmId();
         holder.mDescription.setText(degradation.getmDescription());
         holder.mReference.setText(degradation.getmReference());
         Context context = holder.mImage.getContext();
@@ -50,19 +49,29 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
                 .into(holder.mImage);
     }
 
+    public Degradation getDegradationById(long id) {
+        if((int) id <= mDegradationsList.size())
+            return mDegradationsList.get((int) id);
+        else
+            return new Degradation();
+    }
+
     @Override
     public int getItemCount() {
         return mDegradationsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.degradation_item_imv) ImageView mImage;
-        @BindView(R.id.degradation_item_reference) TextView mReference;
-        @BindView(R.id.degradation_item_description) TextView mDescription;
+        private ImageView mImage;
+        private TextView mReference;
+        private TextView mDescription;
+        private long mId;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mImage = (ImageView) itemView.findViewById(R.id.degradation_item_imv);
+            mReference = (TextView) itemView.findViewById(R.id.degradation_item_reference);
+            mDescription = (TextView) itemView.findViewById(R.id.degradation_item_description);
         }
     }
 }

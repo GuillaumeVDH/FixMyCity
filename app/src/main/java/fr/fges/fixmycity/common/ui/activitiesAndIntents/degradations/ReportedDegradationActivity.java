@@ -12,19 +12,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.models.Degradation;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
 public class ReportedDegradationActivity extends BaseActivity {
 
     private Degradation mDegradation;
-    @BindView(R.id.reported_degradation_imv) ImageView mPhoto;
-    @BindView(R.id.reported_degradation_cagetory) TextView mCategory;
-    @BindView(R.id.reported_degradation_reference) TextView mReference;
-    @BindView(R.id.reported_degradation_description) TextView mDescription;
+    private ImageView mPhoto;
+    private TextView mCategory;
+    private TextView mReference;
+    private TextView mDescription;
+    private DegradationService mDegradationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,20 @@ public class ReportedDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ButterKnife.bind(this);
+        mDegradationService = new DegradationServicesImpl();
+
+        mPhoto = (ImageView) findViewById(R.id.reported_degradation_imv);
+        mReference = (TextView) findViewById(R.id.reported_degradation_reference);
+        mDescription = (TextView) findViewById(R.id.reported_degradation_description);
+        mCategory = (TextView) findViewById(R.id.reported_degradation_cagetory);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            Integer position = extras.getInt("degradationPosition");
-            if(position >= 0 && position < mDegradationFactory.getInstance().getmDegradationList().size()) {
-                mDegradation = mDegradationFactory.getInstance().getmDegradationList().get(position);
+            Integer position = extras.getInt("degradationId");
+
+            if(position >= 0 && position <= mDegradationService.countNbDegradations()) {
+
+                mDegradation = mDegradationService.findDegradationById(position);
                 mDescription.setText(mDegradation.getmDescription());
                 mReference.setText(mDegradation.getmReference());
                 mCategory.setText(mDegradation.getmCategory());

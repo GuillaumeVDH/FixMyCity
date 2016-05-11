@@ -32,12 +32,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fr.fges.fixmycity.R;
-import fr.fges.fixmycity.common.Constants;
 import fr.fges.fixmycity.common.models.Degradation;
+import fr.fges.fixmycity.common.services.DegradationService;
+import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
 public class ReportDegradationActivity extends BaseActivity {
@@ -51,13 +49,13 @@ public class ReportDegradationActivity extends BaseActivity {
             Manifest.permission.CAMERA
     };
 
-    @BindView(R.id.report_degradation_take_photo_btn) Button mTakePhotoBtn;
-    //@BindView(R.id.report_degradation_sp) Spinner mDegradationType;
+    private Button mTakePhotoBtn;
     private Spinner mDegradationType;
-    @BindView(R.id.report_degradation_photo_imv) ImageView mImageView;
-    @BindView(R.id.report_degradation_edt) EditText mDescriptionEdt;
+    private ImageView mImageView;
+    private EditText mDescriptionEdt;
     private File mPhotoFile;
     private File mStorageDir;
+    private DegradationService mDegradationService;
     private String mCurrentPhotoPath = null;
     private Uri mCapturedImageURI = null;
 
@@ -71,10 +69,8 @@ public class ReportDegradationActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ButterKnife.bind(this);
-        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
-
-        mStorageDir = new File(Environment.getExternalStorageDirectory()+ Constants.APP_PHOTOS_PATH);
+        mDegradationService = new DegradationServicesImpl();
+        mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,23 +83,35 @@ public class ReportDegradationActivity extends BaseActivity {
                 degradation.setmDescription(mDescriptionEdt.getText().toString());
                 degradation.setmReference("NULL-PTR?");
                 degradation.setmCategory(mDegradationType.getSelectedItem().toString());
-                mDegradationFactory.getInstance().addDegradation(degradation);
+
+                long id = mDegradationService.addDegradation(degradation);
+                degradation.setmId(id);
+                mDegradationService.updateDegradation(degradation);
+
                 Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
                         .setAction("Action", null).show();
 
-                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright or a snackbare here with failure message.
+                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
             }
         });
 
+        mImageView = (ImageView) findViewById(R.id.report_degradation_photo_imv);
+
+        mDescriptionEdt = (EditText) findViewById(R.id.report_degradation_edt);
+
+        mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
         mDegradationType.setAdapter(adapter);
-    }
 
-    @OnClick(R.id.report_degradation_take_photo_btn)
-    private void onTakePhotoBtnClicked() {
-        verifyStoragePermissions();
-        mPhotoFile = null;
-        dispatchTakePictureIntent();
+        mTakePhotoBtn = (Button) findViewById(R.id.report_degradation_take_photo_btn);
+        mTakePhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyStoragePermissions();
+                mPhotoFile = null;
+                dispatchTakePictureIntent();
+            }
+        });
     }
 
     private void verifyStoragePermissions() {
