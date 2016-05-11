@@ -12,7 +12,6 @@ import android.view.View;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
-import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.services.DegradationService;
 import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
