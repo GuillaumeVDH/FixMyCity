@@ -4,10 +4,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,14 +14,17 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.w3c.dom.Text;
+import java.text.DateFormat;
+import java.util.Date;
 
 import fr.fges.fixmycity.R;
 
-public class GetCurrentLocation extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class GetCurrentLocation extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     private static final int MY_PERMISSION_REQUEST_LOCATION=1;
     private GoogleApiClient mGoogleApiClient;
@@ -42,10 +43,11 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
         latitudeTextView = (TextView)findViewById(R.id.latitude_value);
         longitudeTextView = (TextView)findViewById(R.id.longitude_value);
 
-        Button button = (Button) findViewById(R.id.btnLocation);
+        final Button button = (Button) findViewById(R.id.btnLocation);
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                createLocationRequest();
+                startLocationUpdate();
             }
         });
     }
@@ -66,7 +68,7 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        displayLocation();
+        startLocationUpdate();
     }
 
     protected void onStart(){
@@ -81,7 +83,7 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+        startLocationUpdate();
     }
 
     @Override
@@ -94,25 +96,42 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
        /* Snackbar.make(findViewById(R.id.container), R.string.connection_location_failed, Snackbar.LENGTH_LONG).show();*/
     }
 
-    private void displayLocation(){
+    private void startLocationUpdate(){
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSION_REQUEST_LOCATION);
         }else{
-            mLastConnection = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mLastConnection!=null){
-                latitudeTextView.setText(""+mLastConnection.getLatitude());
-                longitudeTextView.setText(""+mLastConnection.getLongitude());
+            if (mCurrentLocation==null){
+                mCurrentLocation=LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                mLastUpdateTime= java.text.DateFormat.getDateTimeInstance().format(new Date());
             }else {
-                /* Snackbar.make(findViewById(R.id.container), R.string.connection_location_failed, Snackbar.LENGTH_LONG).show();*/
+              LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest, (LocationListener) this);
             }
+            updateUI();
         }
+    }
+
+    private void updateUI(){
+        if (mCurrentLocation!=null) {
+            latitudeTextView.setText(String.valueOf(mCurrentLocation.getLatitude()));
+            longitudeTextView.setText(String.valueOf(mCurrentLocation.getLongitude()));
+        }
+    }
+    private void stopLocationUpdate(){
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     private void OnRequestPermissionResult(int requestCode, String[] permission,int[] grantResults){
         if(requestCode == MY_PERMISSION_REQUEST_LOCATION){
             if(grantResults.length == 1 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                displayLocation();
+                startLocationUpdate();
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mCurrentLocation = location;
+        mLastUpdateTime = DateFormat.getDateTimeInstance().format(new Date());
+        updateUI();
     }
 }
