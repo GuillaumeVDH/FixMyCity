@@ -33,6 +33,7 @@ public class DegradationFactory {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
 
     public DegradationFactory() {
+        /*
         mDegradationList.add(new Degradation(null, "ABB7RF1", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF2", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF3", mDescription));
@@ -47,6 +48,7 @@ public class DegradationFactory {
         mDegradationList.add(new Degradation(null, "ABB7RF12", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF13", mDescription));
         mDegradationList.add(new Degradation(null, "ABB7RF14", mDescription));
+        */
 
         this.initPhotosToList();
     }
