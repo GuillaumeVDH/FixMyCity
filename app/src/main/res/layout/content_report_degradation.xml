@@ -72,24 +72,21 @@
                 android:id="@+id/report_degradation_sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dialog">
+                android:spinnerMode="dialog"/>
 
-            </Spinner>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/report_degradation_description"
-                android:id="@+id/report_degradation_description_label_txv" />
-
-            <EditText
-                android:id="@+id/report_degradation_edt"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="2"
-                android:inputType="textMultiLine"
-                android:maxLines="6" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/report_degradation_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:maxLines="6"
+                    android:hint="@string/report_degradation_description"
+                    android:inputType="textMultiLine" />
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 

@@ -31,7 +31,7 @@
 
     <string name="report_degradation_photo_description">Photo of the degradation</string>
     <string name="main_reported_degradations_list">Reporté autour de vous:</string>
-    <string name="report_degradation_description">Description:</string>
+    <string name="report_degradation_description">Description</string>
     <string name="report_degradation_choose_type">Catégoriser la dégradation:</string>
     <string name="reported_degradation_picture_description">picture_of_the_degradation</string>
     <string name="reported_degradation_description_label">Description:</string>

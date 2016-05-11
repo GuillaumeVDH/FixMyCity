@@ -9,10 +9,11 @@
     tools:context="fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity"
     tools:showIn="@layout/activity_all_reported_degradations">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/all_reported_degradations_rcv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/all_reported_degradations_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
