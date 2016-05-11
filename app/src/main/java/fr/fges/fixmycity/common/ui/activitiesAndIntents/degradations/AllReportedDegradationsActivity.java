@@ -35,13 +35,11 @@ public class AllReportedDegradationsActivity extends BaseActivity {
 
         mDegradationService = new DegradationServicesImpl();
 
-//        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(mDegradationsAdapter);
-        //recyclerView.hasFixedSize();
         recyclerView.setHasFixedSize(false);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -51,7 +49,7 @@ public class AllReportedDegradationsActivity extends BaseActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent intent = new Intent(getBaseContext(), ReportedDegradationActivity.class);
-                intent.putExtra("degradationId", (int)mDegradationsAdapter.getItemId(position));
+                intent.putExtra("degradationId", (int)mDegradationsAdapter.getDegradationById(position).getmId());
                 startActivity(intent);
             }
         });

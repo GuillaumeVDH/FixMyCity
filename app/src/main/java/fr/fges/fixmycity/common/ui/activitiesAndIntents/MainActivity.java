@@ -49,8 +49,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
-//        this.mDegradationsAdapter = new DegradationsAdapter(mDegradationFactory.getInstance().getmDegradationList());
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         mButton = (Button) findViewById(R.id.main_report_btn);
@@ -61,7 +59,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -75,13 +72,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent intent = new Intent(getBaseContext(), ReportedDegradationActivity.class);
-                intent.putExtra("degradationPosition", (int)position);
+                intent.putExtra("degradationId", (int)mDegradationsAdapter.getDegradationById(position).getmId());
                 startActivity(intent);
             }
         });
-
     }
-
-
-
 }

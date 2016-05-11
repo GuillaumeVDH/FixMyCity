@@ -39,6 +39,7 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
     public void onBindViewHolder(DegradationsAdapter.ViewHolder holder, int position) {
         Degradation degradation = mDegradationsList.get(position);
 
+        holder.mId = degradation.getmId();
         holder.mDescription.setText(degradation.getmDescription());
         holder.mReference.setText(degradation.getmReference());
         Context context = holder.mImage.getContext();
@@ -46,6 +47,13 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
                 .with(context)
                 .load(degradation.getmImagePath())
                 .into(holder.mImage);
+    }
+
+    public Degradation getDegradationById(long id) {
+        if((int) id <= mDegradationsList.size())
+            return mDegradationsList.get((int) id);
+        else
+            return new Degradation();
     }
 
     @Override
@@ -57,6 +65,7 @@ public class DegradationsAdapter extends RecyclerView.Adapter<DegradationsAdapte
         private ImageView mImage;
         private TextView mReference;
         private TextView mDescription;
+        private long mId;
 
         public ViewHolder(View itemView) {
             super(itemView);

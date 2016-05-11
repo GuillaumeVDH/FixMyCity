@@ -26,6 +26,11 @@ public class DegradationServicesImpl implements DegradationService {
     }
 
     @Override
+    public long updateDegradation(Degradation degradation) {
+        return mManager.updateDegradation(degradation);
+    }
+
+    @Override
     public void deleteDegradation(Degradation degradation) {
         mManager.removeDegradation(degradation);
     }

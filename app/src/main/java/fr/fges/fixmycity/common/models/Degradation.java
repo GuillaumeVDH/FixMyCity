@@ -9,8 +9,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "degradations")
 public class Degradation {
 
-    @DatabaseField(generatedId = true, columnName = "teacher_id")
-    private int mId;
+    @DatabaseField(generatedId = true, columnName = "degradation_id")
+    private long mId;
 
     @DatabaseField()
     private String mReference;
@@ -24,11 +24,11 @@ public class Degradation {
     public Degradation() {
     }
 
-    public int getmId() {
+    public long getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(long mId) {
         this.mId = mId;
     }
 
@@ -62,5 +62,16 @@ public class Degradation {
 
     public void setmCategory(String mCategory) {
         this.mCategory = mCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "Degradation{" +
+                "mId=" + mId +
+                ", mReference='" + mReference + '\'' +
+                ", mCategory='" + mCategory + '\'' +
+                ", mDescription='" + mDescription + '\'' +
+                ", mImagePath='" + mImagePath + '\'' +
+                '}';
     }
 }
