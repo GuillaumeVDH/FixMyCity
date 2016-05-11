@@ -1,5 +1,6 @@
 package fr.fges.fixmycity.common.ui.activitiesAndIntents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class BaseActivity extends AppCompatActivity
@@ -79,17 +82,26 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this, ReportDegradationActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this, AllReportedDegradationsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
-
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.setType("message/rfc822");
+            email.putExtra(android.content.Intent.EXTRA_EMAIL,new String [] {"franck.mahieu59@gmail.com"});
+            email.putExtra(Intent.EXTRA_SUBJECT, "Signaler un bug");
+            email.putExtra(Intent.EXTRA_TEXT, "Saisir votre demande ici...");
+            email.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(Intent.createChooser(email, "Choisir le logiciel"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
