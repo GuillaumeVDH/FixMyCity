@@ -49,6 +49,7 @@
                     android:id="@+id/report_degradation_take_photo_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_menu_camera"
                     android:text="@string/report_degradation_take_photo_btn" />
             </LinearLayout>
 
@@ -82,7 +83,7 @@
                     android:id="@+id/report_degradation_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minLines="2"
+                    android:minLines="3"
                     android:maxLines="6"
                     android:hint="@string/report_degradation_description"
                     android:inputType="textMultiLine" />
