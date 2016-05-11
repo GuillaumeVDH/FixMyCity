@@ -9,7 +9,9 @@
     <!-- To take a photo of the degradation and store it before sending -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -45,7 +47,8 @@
         <activity
             android:name=".common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity"
             android:label="@string/title_activity_all_reported_degradations"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".common.ui.activitiesAndIntents.degradations.GetCurrentLocation"></activity>
     </application>
 
 </manifest>

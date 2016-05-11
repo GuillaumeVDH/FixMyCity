@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.GetCurrentLocation;
 import fr.fges.fixmycity.factories.DegradationFactory;
 
 public class BaseActivity extends AppCompatActivity
@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent intent = new Intent(this, ReportDegradationActivity.class);
+            Intent intent = new Intent(this, GetCurrentLocation.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_home) {
