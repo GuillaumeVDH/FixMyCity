@@ -6,6 +6,7 @@ import java.util.Set;
 
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.persistence.DBManager;
+import fr.fges.fixmycity.common.persistence.dao.DegradationDao;
 
 import static com.j256.ormlite.android.apptools.OpenHelperManager.getHelper;
 
@@ -14,39 +15,39 @@ import static com.j256.ormlite.android.apptools.OpenHelperManager.getHelper;
  */
 public class DegradationServicesImpl implements DegradationService {
 
-    private DBManager mManager;
+    private DegradationDao degradationDao;
 
     public DegradationServicesImpl() {
-        mManager = DBManager.getInstance();
+        degradationDao = new DegradationDao();
     }
 
     @Override
     public long addDegradation(Degradation degradation) {
-        return mManager.createDegradation(degradation);
+        return degradationDao.createDegradation(degradation);
     }
 
     @Override
     public long updateDegradation(Degradation degradation) {
-        return mManager.updateDegradation(degradation);
+        return degradationDao.updateDegradation(degradation);
     }
 
     @Override
     public void deleteDegradation(Degradation degradation) {
-        mManager.removeDegradation(degradation);
+        degradationDao.removeDegradation(degradation);
     }
 
     @Override
     public Degradation findDegradationById(long id) {
-        return mManager.getDegradationById(id);
+        return degradationDao.getDegradationById(id);
     }
 
     @Override
     public List<Degradation> findAllDegradations() {
-        return mManager.getAllDegradations();
+        return degradationDao.getAllDegradations();
     }
 
     @Override
     public long countNbDegradations() {
-        return mManager.countNbDegradations();
+        return degradationDao.countNbDegradations();
     }
 }
