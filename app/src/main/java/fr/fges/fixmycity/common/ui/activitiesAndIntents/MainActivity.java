@@ -47,9 +47,6 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        mDegradationService = new DegradationServicesImpl();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +56,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        mDegradationService = new DegradationServicesImpl();
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_reported_degradations_rcv);
@@ -84,5 +82,4 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(getBaseContext(), ReportDegradationActivity.class);
         startActivity(intent);
     }
-
 }

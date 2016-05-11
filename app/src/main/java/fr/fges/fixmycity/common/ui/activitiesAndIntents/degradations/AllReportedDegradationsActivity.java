@@ -33,7 +33,6 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         mDegradationService = new DegradationServicesImpl();
-
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.all_reported_degradations_rcv);

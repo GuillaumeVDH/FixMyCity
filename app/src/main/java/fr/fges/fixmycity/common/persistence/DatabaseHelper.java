@@ -11,7 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import fr.fges.fixmycity.Constants;
+import fr.fges.fixmycity.common.Constants;
 import fr.fges.fixmycity.common.models.Degradation;
 
 /**

@@ -37,8 +37,6 @@ public class BaseActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ButterKnife.setDebug(true);
-
         setOpenHelperClass(DatabaseHelper.class);
         DBManager.Init(this);
 
