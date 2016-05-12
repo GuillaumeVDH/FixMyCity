@@ -17,6 +17,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -34,6 +37,7 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
     private Location mCurrentLocation;
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,5 +137,19 @@ public class GetCurrentLocation extends AppCompatActivity implements GoogleApiCl
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getDateTimeInstance().format(new Date());
         updateUI();
+        /*LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        stopLocationUpdate();*/
+    }
+
+    public void onMapReady(GoogleMap map){
+        mMap=map;
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSION_REQUEST_LOCATION);
+        }
+        else{
+            mMap.setMyLocationEnabled(true);
+        }
+        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 }
