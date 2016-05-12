@@ -33,6 +33,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/degradation_item_description"
             android:layout_below="@+id/degradation_item_reference"
+            android:maxLines="5"
+            android:ellipsize="end"
             tools:text="This is a description"/>
 
     </RelativeLayout>
