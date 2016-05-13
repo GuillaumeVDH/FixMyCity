@@ -21,6 +21,7 @@ import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.services.DegradationService;
 import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.GetCurrentLocation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportedDegradationActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AllReportedDegradationsActivity.class);
+                Intent intent = new Intent(getBaseContext(), GetCurrentLocation.class);
                 startActivity(intent);
             }
         });

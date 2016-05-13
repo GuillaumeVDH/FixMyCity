@@ -46,4 +46,6 @@
         <item>Déchets</item>
         <item>Parc</item>
     </string-array>
+    <string name="title_activity_maps">maps</string>
+    <string name="google_maps_key">AIzaSyBFIpb0ckAZBN-JVBf6vy_bw3QLqt3gVuQ</string>
 </resources>
