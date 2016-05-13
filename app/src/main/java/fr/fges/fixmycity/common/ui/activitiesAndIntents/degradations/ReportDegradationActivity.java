@@ -87,19 +87,23 @@ public class ReportDegradationActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Degradation degradation = new Degradation();
-                if(mPhotoFile.exists())
+                if(mPhotoFile!=null && mPhotoFile.exists()) {
                     degradation.setmImagePath(mPhotoFile.getAbsolutePath());
 
-                degradation.setmDescription(mDescriptionEdt.getText().toString());
-                degradation.setmReference("NULL-PTR?");
-                degradation.setmCategory(mDegradationType.getSelectedItem().toString());
+                    degradation.setmDescription(mDescriptionEdt.getText().toString());
+                    degradation.setmReference("NULL-PTR?");
+                    degradation.setmCategory(mDegradationType.getSelectedItem().toString());
 
-                long id = mDegradationService.addDegradation(degradation);
-                degradation.setmId(id);
-                mDegradationService.updateDegradation(degradation);
+                    long id = mDegradationService.addDegradation(degradation);
+                    degradation.setmId(id);
+                    mDegradationService.updateDegradation(degradation);
 
-                Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
-                        .setAction("Action", null).show();
+                    Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
+                            .setAction("Action", null).show();
+                }else {
+                    Snackbar.make(view, "Une erreur est survenue", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
 
                 //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
             }
