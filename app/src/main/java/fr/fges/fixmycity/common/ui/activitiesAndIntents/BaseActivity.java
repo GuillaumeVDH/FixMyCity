@@ -19,6 +19,7 @@ import fr.fges.fixmycity.common.persistence.DBManager;
 import fr.fges.fixmycity.common.persistence.DatabaseHelper;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.GetCurrentLocation;
+import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.factories.DegradationFactory;
 
 import static com.j256.ormlite.android.apptools.OpenHelperManager.setOpenHelperClass;
@@ -90,7 +91,7 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent intent = new Intent(this, GetCurrentLocation.class);
+            Intent intent = new Intent(this, ReportDegradationActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_home) {

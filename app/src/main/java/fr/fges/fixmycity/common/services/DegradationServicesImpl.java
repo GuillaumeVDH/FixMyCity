@@ -1,12 +1,9 @@
 package fr.fges.fixmycity.common.services;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 import fr.fges.fixmycity.common.models.Degradation;
-import fr.fges.fixmycity.common.persistence.DBManager;
-import fr.fges.fixmycity.common.persistence.dao.DegradationDao;
+import fr.fges.fixmycity.common.persistence.dao.degradationDao;
 
 import static com.j256.ormlite.android.apptools.OpenHelperManager.getHelper;
 
@@ -15,10 +12,10 @@ import static com.j256.ormlite.android.apptools.OpenHelperManager.getHelper;
  */
 public class DegradationServicesImpl implements DegradationService {
 
-    private DegradationDao degradationDao;
+    private fr.fges.fixmycity.common.persistence.dao.degradationDao degradationDao;
 
     public DegradationServicesImpl() {
-        degradationDao = new DegradationDao();
+        degradationDao = new degradationDao();
     }
 
     @Override

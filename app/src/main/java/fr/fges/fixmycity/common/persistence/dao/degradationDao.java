@@ -12,12 +12,12 @@ import fr.fges.fixmycity.common.persistence.DatabaseHelper;
 /**
  * Created by Guillaume
  */
-public class DegradationDao {
+public class degradationDao {
 
     private DBManager mManager;
     private DatabaseHelper mHelper;
 
-    public DegradationDao() {
+    public degradationDao() {
         mManager = DBManager.getInstance();
         mHelper = mManager.getHelper();
     }

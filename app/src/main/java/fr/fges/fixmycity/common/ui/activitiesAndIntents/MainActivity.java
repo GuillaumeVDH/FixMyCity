@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), GetCurrentLocation.class);
+                Intent intent = new Intent(getBaseContext(), AllReportedDegradationsActivity.class);
                 startActivity(intent);
             }
         });
