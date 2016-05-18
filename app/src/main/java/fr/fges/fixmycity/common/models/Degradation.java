@@ -21,6 +21,11 @@ public class Degradation {
     @DatabaseField
     private String mImagePath;
 
+    @DatabaseField
+    private Double mLatitude;
+    @DatabaseField
+    private Double mLongitude;
+
     public Degradation() {
     }
 
@@ -64,6 +69,22 @@ public class Degradation {
         this.mCategory = mCategory;
     }
 
+    public Double getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(Double mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public Double getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(Double mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
     @Override
     public String toString() {
         return "Degradation{" +
@@ -72,6 +93,8 @@ public class Degradation {
                 ", mCategory='" + mCategory + '\'' +
                 ", mDescription='" + mDescription + '\'' +
                 ", mImagePath='" + mImagePath + '\'' +
+                ", mLatitude=" + mLatitude +
+                ", mLongitude=" + mLongitude +
                 '}';
     }
 }

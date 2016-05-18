@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
@@ -28,6 +30,10 @@ public class ReportedDegradationActivity extends BaseActivity {
     TextView mCategory;
     @Bind(R.id.reported_degradation_reference)
     TextView mReference;
+    @Bind(R.id.reported_degradation_latitude)
+    TextView mLatitude;
+    @Bind(R.id.reported_degradation_longitude)
+    TextView mLongitude;
     @Bind(R.id.reported_degradation_description)
     TextView mDescription;
     private Degradation mDegradation;
@@ -58,6 +64,8 @@ public class ReportedDegradationActivity extends BaseActivity {
                 mDescription.setText(mDegradation.getmDescription());
                 mReference.setText(mDegradation.getmReference());
                 mCategory.setText(mDegradation.getmCategory());
+                mLatitude.setText(String.format(Locale.getDefault(), "%1$,.2f", mDegradation.getmLatitude()));
+                mLongitude.setText(String.format(Locale.getDefault(), "%1$,.2f", mDegradation.getmLongitude()));
                 Glide
                         .with(this)
                         .load(mDegradation.getmImagePath())

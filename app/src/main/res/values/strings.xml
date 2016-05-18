@@ -48,4 +48,7 @@
     </string-array>
     <string name="title_activity_maps">maps</string>
     <string name="google_app_id">AIzaSyBFIpb0ckAZBN-JVBf6vy_bw3QLqt3gVuQ</string>
+    <string name="report_degradation_get_position_btn">Récupérer la position GPS</string>
+    <string name="reported_degradation_latitude_label">Latitude</string>
+    <string name="reported_degradation_longitude_label">Longitude</string>
 </resources>

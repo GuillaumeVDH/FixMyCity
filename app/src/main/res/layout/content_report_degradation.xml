@@ -49,6 +49,7 @@
                     android:id="@+id/report_degradation_take_photo_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_menu_camera"
                     android:drawableLeft="@drawable/ic_menu_camera"
                     android:text="@string/report_degradation_take_photo_btn" />
             </LinearLayout>
@@ -74,6 +75,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dialog"/>
+
+            <Button
+                android:id="@+id/report_degradation_get_position_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@android:drawable/ic_menu_mylocation"
+                android:drawableLeft="@android:drawable/ic_menu_mylocation"
+                android:text="@string/report_degradation_get_position_btn" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

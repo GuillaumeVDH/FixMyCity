@@ -2,15 +2,20 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +29,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,10 +52,12 @@ import fr.fges.fixmycity.common.services.DegradationService;
 import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.BaseActivity;
 
-public class ReportDegradationActivity extends BaseActivity {
+public class ReportDegradationActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSION_REQUEST_LOCATION = 1;
 
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -54,6 +67,8 @@ public class ReportDegradationActivity extends BaseActivity {
 
     @Bind(R.id.report_degradation_take_photo_btn)
     Button mTakePhotoBtn;
+    @Bind(R.id.report_degradation_get_position_btn)
+    Button mGetPositionBtn;
     @Bind(R.id.report_degradation_photo_imv)
     ImageView mImageView;
     @Bind(R.id.report_degradation_edt)
@@ -65,6 +80,9 @@ public class ReportDegradationActivity extends BaseActivity {
     private DegradationService mDegradationService;
     private String mCurrentPhotoPath = null;
     private Uri mCapturedImageURI = null;
+    private GoogleApiClient mGoogleApiClient;
+    private Double mLatitude = 0.0;
+    private Double mLongitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,33 +101,38 @@ public class ReportDegradationActivity extends BaseActivity {
         mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Degradation degradation = new Degradation();
-                if(mPhotoFile!=null && mPhotoFile.exists()) {
-                    degradation.setmImagePath(mPhotoFile.getAbsolutePath());
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Degradation degradation = new Degradation();
+                    if(mPhotoFile!=null && mPhotoFile.exists()) {
+                        degradation.setmImagePath(mPhotoFile.getAbsolutePath());
 
-                    degradation.setmDescription(mDescriptionEdt.getText().toString());
-                    degradation.setmReference("NULL-PTR?");
-                    degradation.setmCategory(mDegradationType.getSelectedItem().toString());
+                        degradation.setmDescription(mDescriptionEdt.getText().toString());
+                        degradation.setmReference("REF-XXX"); //TODO - random references
+                        degradation.setmCategory(mDegradationType.getSelectedItem().toString());
+                        degradation.setmLatitude(mLatitude);
+                        degradation.setmLongitude(mLongitude);
 
-                    long id = mDegradationService.addDegradation(degradation);
-                    degradation.setmId(id);
-                    mDegradationService.updateDegradation(degradation);
+                        long id = mDegradationService.addDegradation(degradation);
+                        degradation.setmId(id);
+                        mDegradationService.updateDegradation(degradation);
 
-                    Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
-                            .setAction("Action", null).show();
-                }else {
-                    Snackbar.make(view, "Une erreur est survenue", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                        Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
+                                .setAction("Action", null).show();
+                    }else {
+                        Snackbar.make(view, "Une erreur est survenue", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+
+                    //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
                 }
+            });
+        }
 
-                //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
-            }
-        });
+        buildGoogleApiClient();
 
-        //mDegradationType = (Spinner) findViewById(R.id.report_degradation_sp);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.degradations_types_array, android.R.layout.simple_spinner_dropdown_item);
         mDegradationType.setAdapter(adapter);
 
@@ -120,6 +143,26 @@ public class ReportDegradationActivity extends BaseActivity {
         verifyStoragePermissions();
         mPhotoFile = null;
         dispatchTakePictureIntent();
+    }
+
+    @OnClick(R.id.report_degradation_get_position_btn)
+    protected void onGetPositionBtn() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSION_REQUEST_LOCATION);
+        }else{
+            Location location = null;
+            if (location==null){
+                location=LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                mLatitude = location.getLatitude();
+                mLongitude = location.getLongitude();
+            }else {
+                LocationRequest locationRequest = new LocationRequest();
+                locationRequest.setInterval(10000);
+                locationRequest.setFastestInterval(5000);
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest, this);
+            }
+        }
     }
 
     private void verifyStoragePermissions() {
@@ -226,4 +269,43 @@ public class ReportDegradationActivity extends BaseActivity {
         return mCapturedImageURI;
     }
 
+    private synchronized void buildGoogleApiClient(){
+        if(mGoogleApiClient == null){
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    protected void onStart(){
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop(){
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
 }
