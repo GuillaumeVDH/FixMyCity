@@ -49,6 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.fges.fixmycity.R;
+import fr.fges.fixmycity.common.Constants;
 import fr.fges.fixmycity.common.models.Degradation;
 import fr.fges.fixmycity.common.services.DegradationService;
 import fr.fges.fixmycity.common.services.DegradationServicesImpl;
@@ -92,7 +93,6 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
         final LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_report_degradation, null, false);
-
         ButterKnife.bind(this, contentView);
 
         mDrawer.addView(contentView, 0);
@@ -100,7 +100,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
         setSupportActionBar(toolbar);
 
         mDegradationService = new DegradationServicesImpl();
-        mStorageDir = new File(Environment.getExternalStorageDirectory()+"/FixMyCity/pictures/");
+        mStorageDir = new File(Environment.getExternalStorageDirectory()+Constants.APP_PHOTOS_PATH);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -116,7 +116,6 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
                         int randomreferences = r.nextInt(100000000 - 0) + 0;
                         degradation.setmReference("REF-" + randomreferences);
                         degradation.setmCategory(mDegradationType.getSelectedItem().toString());
-
 
                         degradation.setmLatitude(mLatitude);
                         degradation.setmLongitude(mLongitude);
@@ -182,9 +181,9 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
 
     private void showGPSDisabledAlertToUser(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Le GPS est désactivé, voulez vous l'activer ? ")
+        alertDialogBuilder.setMessage(R.string.would_you_active_gps)
                 .setCancelable(false)
-                .setPositiveButton("Activer le GPS",
+                .setPositiveButton(R.string.active_gps,
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id){
                                 Intent callGPSSettingIntent = new Intent(
@@ -192,7 +191,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
                                 startActivity(callGPSSettingIntent);
                             }
                         });
-        alertDialogBuilder.setNegativeButton("Annuler",
+        alertDialogBuilder.setNegativeButton(R.string.cancel,
                 new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         dialog.cancel();
@@ -225,7 +224,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
         // Check if there is a camera.
         PackageManager packageManager = this.getPackageManager();
         if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false){
-            Toast.makeText(this, "This device does not have a camera.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.dont_have_camera, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -241,7 +240,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
                 mPhotoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Toast toast = Toast.makeText(this, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, R.string.pb_save_image, Toast.LENGTH_SHORT);
                 toast.show();
             }
             // Continue only if the File was successfully created

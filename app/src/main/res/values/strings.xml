@@ -1,18 +1,27 @@
 <resources>
     <string name="app_name">FixMyCity</string>
 
+    <!-- Strings related to mail
+    <string name="mail">franck.mahieu59@gmail.com</string>
+    <string name="signal_bug">Signaler un bug</string>
+    <string name="mail_content">Saisir votre demande ici...</string>
+    <string name="choose_mail_app">Choisir le logiciel</string>
+    -->
+
+
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="main_app_name">FixMyCity</string>
-    <string name="title_activity_login">Sign in</string>
     <string name="title_activity_report_degradation">Déclarer une dégradation</string>
     <string name="title_activity_reported_degradation">Dégradation</string>
     <string name="title_activity_all_reported_degradations">Liste des dégradations autour de vous</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -22,23 +31,22 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="main_report_btn">Déclarer une dégradation</string>
+        completions."</string>
     <string name="login_sign_in_btn">Sign in</string>
     <string name="login_sign_up_btn">Sign up</string>
-    <string name="report_degradation_take_photo_btn">Take a photo</string>
 
-    <string name="report_degradation_photo_description">Photo of the degradation</string>
-    <string name="main_reported_degradations_list">Reporté autour de vous:</string>
+    <!-- Stings related to degradation -->
+    <string name="main_report_btn">Déclarer une dégradation</string>
+    <string name="report_degradation_take_photo_btn">Prendre une photo</string>
+    <string name="report_degradation_photo_description">Prendre une photo de la dégradation</string>
+    <string name="main_reported_degradations_list">Reporté autour de vous : </string>
     <string name="report_degradation_description">Description</string>
-    <string name="report_degradation_choose_type">Catégoriser la dégradation:</string>
-    <string name="reported_degradation_picture_description">picture_of_the_degradation</string>
+    <string name="report_degradation_choose_type">Catégoriser la dégradation : </string>
+    <string name="reported_degradation_picture_description">Photo de la dégradation</string>
     <string name="reported_degradation_description_label">Description:</string>
-    <string name="reported_degradation_category_label">Categorie</string>
+    <string name="reported_degradation_category_label">Catégorie</string>
     <string name="reported_degradation_reference_label">Référence:</string>
     <string name="degradation_item_imv_description">Photo de la dégradation</string>
-
     <string-array name="degradations_types_array">
         <item>Infrastructure routière</item>
         <item>Infrastructure urbaine</item>
@@ -46,14 +54,21 @@
         <item>Déchets</item>
         <item>Parc</item>
     </string-array>
-    <string name="title_activity_maps">maps</string>
-    <string name="google_app_id">AIzaSyBFIpb0ckAZBN-JVBf6vy_bw3QLqt3gVuQ</string>
+
     <string name="report_degradation_get_position_btn">Récupérer la position GPS</string>
     <string name="reported_degradation_latitude_label">Latitude</string>
     <string name="reported_degradation_longitude_label">Longitude</string>
-
     <string name="degradation_reported">Degradation reportée. Merci!</string>
     <string name="report_error">Une erreur est survenue</string>
+    <string name="pb_save_image">Il y a eu un problème à la sauvegarde de la photo</string>
+    <string name="dont_have_camera">Cet appareil n\'a pas de caméra</string>
+    <string name="would_you_active_gps">Le GPS est désactivé, voulez vous l\'activer ?</string>
+    <string name="active_gps">Activer le GPS</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm_degradation">La dégradation a été confirmée, merci!</string>
+    <string name="cant_open_degradation">Impossible d\'ouvrir la dégradation demandée.</string>
 
-
+    <!-- Maps -->
+    <string name="title_activity_maps">maps</string>
+    <string name="google_app_id">AIzaSyBFIpb0ckAZBN-JVBf6vy_bw3QLqt3gVuQ</string>
 </resources>

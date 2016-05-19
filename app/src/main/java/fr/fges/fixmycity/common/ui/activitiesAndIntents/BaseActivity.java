@@ -11,16 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-
-import butterknife.ButterKnife;
 import fr.fges.fixmycity.R;
 import fr.fges.fixmycity.common.persistence.DBManager;
 import fr.fges.fixmycity.common.persistence.DatabaseHelper;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.GetCurrentLocation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
-import fr.fges.fixmycity.factories.DegradationFactory;
 
 import static com.j256.ormlite.android.apptools.OpenHelperManager.setOpenHelperClass;
 

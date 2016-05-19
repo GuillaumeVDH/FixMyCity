@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,7 +20,6 @@ import fr.fges.fixmycity.common.adapters.DegradationsAdapter;
 import fr.fges.fixmycity.common.services.DegradationService;
 import fr.fges.fixmycity.common.services.DegradationServicesImpl;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.AllReportedDegradationsActivity;
-import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.GetCurrentLocation;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportDegradationActivity;
 import fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations.ReportedDegradationActivity;
 import fr.fges.fixmycity.common.utils.ItemClickSupport;

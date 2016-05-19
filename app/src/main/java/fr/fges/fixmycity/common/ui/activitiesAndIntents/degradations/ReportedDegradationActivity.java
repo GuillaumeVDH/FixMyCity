@@ -72,7 +72,7 @@ public class ReportedDegradationActivity extends BaseActivity {
                         .into(mPhoto);
             }
             else
-                Snackbar.make(contentView, "Impossible d'ouvrir la dégradation demandée.", Snackbar.LENGTH_LONG)
+                Snackbar.make(contentView, R.string.cant_open_degradation, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
         }
 
@@ -80,7 +80,7 @@ public class ReportedDegradationActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "La dégradation a été confirmée, merci!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, R.string.confirm_degradation, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

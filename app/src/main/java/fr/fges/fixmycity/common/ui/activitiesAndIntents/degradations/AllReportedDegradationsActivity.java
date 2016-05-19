@@ -34,7 +34,7 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         /**
-         * Show snackbar if report is send
+         * Show snackbar if degradation report is send
          */
         Intent intent = getIntent();
         if (intent != null && intent.getStringExtra("report_state")!=null && intent.getStringExtra("report_state").equals("report_ok")) {
