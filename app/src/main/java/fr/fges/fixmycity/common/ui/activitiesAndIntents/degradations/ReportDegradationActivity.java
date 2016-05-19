@@ -2,12 +2,15 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -124,7 +127,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
                         mDegradationService.updateDegradation(degradation);
                         if (id!=-1) {
                             Intent intent = new Intent(getBaseContext(), AllReportedDegradationsActivity.class);
-                            intent.putExtra("report_state","report_ok");
+                            intent.putExtra("report_state", "report_ok");
                             startActivity(intent);
                         }
 
@@ -152,23 +155,57 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
     }
 
     @OnClick(R.id.report_degradation_get_position_btn)
-    protected void onGetPositionBtn() {
+    protected void onGetPositionBtn(View view) {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MY_PERMISSION_REQUEST_LOCATION);
         }else{
-            Location location = null;
-            if (location==null){
-                location=LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                mLatitude = location.getLatitude();
-                mLongitude = location.getLongitude();
-            }else {
-                LocationRequest locationRequest = new LocationRequest();
-                locationRequest.setInterval(10000);
-                locationRequest.setFastestInterval(5000);
-                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest, this);
+            if (isGPSEnabled(this)) {
+                Location location = null;
+                if (location==null){
+                    location=LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    mLatitude = location.getLatitude();
+                    mLongitude = location.getLongitude();
+                }else {
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(10000);
+                    locationRequest.setFastestInterval(5000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest, this);
+                }
             }
+            else{
+                showGPSDisabledAlertToUser();
+            }
+
         }
+    }
+
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Le GPS est désactivé, voulez vous l'activer ? ")
+                .setCancelable(false)
+                .setPositiveButton("Activer le GPS",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Annuler",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    private boolean isGPSEnabled (Context mContext){
+        LocationManager locationManager = (LocationManager)
+                mContext.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private void verifyStoragePermissions() {
