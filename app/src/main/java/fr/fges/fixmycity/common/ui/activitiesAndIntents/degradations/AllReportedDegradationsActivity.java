@@ -3,6 +3,7 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,16 @@ public class AllReportedDegradationsActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /**
+         * Show snackbar if report is send
+         */
+        Intent intent = getIntent();
+        if (intent != null && intent.getStringExtra("report_state")!=null && intent.getStringExtra("report_state").equals("report_ok")) {
+            Snackbar.make(contentView, R.string.degradation_reported, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+        }
+
         mDegradationService = new DegradationServicesImpl();
         this.mDegradationsAdapter = new DegradationsAdapter(mDegradationService.findAllDegradations());
 
@@ -42,6 +53,8 @@ public class AllReportedDegradationsActivity extends BaseActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override

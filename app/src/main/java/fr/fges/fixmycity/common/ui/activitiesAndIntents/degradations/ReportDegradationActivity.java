@@ -2,14 +2,12 @@ package fr.fges.fixmycity.common.ui.activitiesAndIntents.degradations;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -87,7 +86,7 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this
+        final LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_report_degradation, null, false);
 
@@ -106,27 +105,34 @@ public class ReportDegradationActivity extends BaseActivity implements GoogleApi
                 @Override
                 public void onClick(View view) {
                     Degradation degradation = new Degradation();
-                    if(mPhotoFile!=null && mPhotoFile.exists()) {
+                    if (mPhotoFile != null && mPhotoFile.exists()) {
                         degradation.setmImagePath(mPhotoFile.getAbsolutePath());
 
                         degradation.setmDescription(mDescriptionEdt.getText().toString());
-                        degradation.setmReference("REF-XXX"); //TODO - random references
+                        Random r = new Random();
+                        int randomreferences = r.nextInt(100000000 - 0) + 0;
+                        degradation.setmReference("REF-" + randomreferences);
                         degradation.setmCategory(mDegradationType.getSelectedItem().toString());
+
+
                         degradation.setmLatitude(mLatitude);
                         degradation.setmLongitude(mLongitude);
 
                         long id = mDegradationService.addDegradation(degradation);
                         degradation.setmId(id);
-                        mDegradationService.updateDegradation(degradation);
 
-                        Snackbar.make(view, "Degradation reportée. Merci!", Snackbar.LENGTH_LONG) //TODO - Load text from strings?
-                                .setAction("Action", null).show();
-                    }else {
-                        Snackbar.make(view, "Une erreur est survenue", Snackbar.LENGTH_LONG)
+                        mDegradationService.updateDegradation(degradation);
+                        if (id!=-1) {
+                            Intent intent = new Intent(getBaseContext(), AllReportedDegradationsActivity.class);
+                            intent.putExtra("report_state","report_ok");
+                            startActivity(intent);
+                        }
+
+                    }
+                    else {
+                        Snackbar.make(view, R.string.report_error, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
-
-                    //TODO - Redirect to degradation activity view for this new degradation created with snackbar saying everything is allright.
                 }
             });
         }

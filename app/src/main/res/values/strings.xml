@@ -51,4 +51,9 @@
     <string name="report_degradation_get_position_btn">Récupérer la position GPS</string>
     <string name="reported_degradation_latitude_label">Latitude</string>
     <string name="reported_degradation_longitude_label">Longitude</string>
+
+    <string name="degradation_reported">Degradation reportée. Merci!</string>
+    <string name="report_error">Une erreur est survenue</string>
+
+
 </resources>
